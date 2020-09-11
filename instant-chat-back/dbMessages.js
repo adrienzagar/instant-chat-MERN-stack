@@ -4,7 +4,7 @@ const instantChatSchema = mongoose.Schema({
     message: String,
     name: String,
     timestamp: String,
-    reveived: Boolean,
+    received: Boolean,
 });
 
 export default mongoose.model('messageContent', instantChatSchema)
