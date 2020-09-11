@@ -29,6 +29,29 @@ mongoose.connect(connection_url,{
     useUnifiedTopology: true
 });
 
+const db = mongoose.connection;
+
+db.once('open', () => {
+    console.log("DB is connected");
+
+    const msgCollection = db.collection("messagecontents");
+    const changeStream = msgCollection.watch();
+
+    changeStream.on('change', (change) => {
+        console.log(change, "changing");
+
+        if (change.operationType === 'insert') {
+            const messageDetails = change.fullDocument;
+            pusher.trigger('messages', 'inserted',{
+                name: messageDetails.user,
+                message: messageDetails.message,
+            });
+        } else {
+            console.log("error triggering pusher")
+        }
+    })
+})
+
 // ????
 
 // api routes

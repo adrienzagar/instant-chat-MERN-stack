@@ -7,4 +7,4 @@ const instantChatSchema = mongoose.Schema({
     received: Boolean,
 });
 
-export default mongoose.model('messageContent', instantChatSchema)
+export default mongoose.model('messagecontents', instantChatSchema)
