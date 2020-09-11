@@ -1,3 +1,0 @@
-[submodule "instant-chat-front/instant-chat-back"]
-	path = instant-chat-front/instant-chat-back
-	url = https://github.com/adrienzagar/instant-chat-MERN-stack.git
