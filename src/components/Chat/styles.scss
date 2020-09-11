@@ -50,5 +50,29 @@
         margin-left: auto;
         background-color: #dcf8c6;
     }
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 62px;
+        border-top: 1px solid lightgray;
+    }
+    &__footer > form {
+        flex: 1;
+        display: flex;
+    }
+    &__footer > form > input {
+        flex: 1;
+        border-radius: 30px;
+        padding: 10px;
+        border: none;
+    }
+    &__footer > form > button {
+        display: none;
+    }
+    &__footer > .MuiSvgIcon-root {
+        padding: 10px;
+        color: gray;
+    }
 }
 

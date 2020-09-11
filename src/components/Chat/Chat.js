@@ -2,6 +2,7 @@ import React from 'react';
 import './styles.scss'
 import { Avatar, IconButton } from '@material-ui/core';
 import { SearchOutlined, AttachFile, MoreVert, InsertEmoticon } from '@material-ui/icons';
+import MicIcon from '@material-ui/icons/Mic'
 
 const Chat = () => {
     return (
@@ -47,7 +48,7 @@ const Chat = () => {
                 </p>
             </div>
 
-            <div className="chat_footer">
+            <div className="chat__footer">
                 <InsertEmoticon />
                 <form >
                     <input
@@ -56,7 +57,7 @@ const Chat = () => {
                     />
                     <button type="submit">Send a message</button>
                 </form>
-
+                <MicIcon />
             </div>
         </div>
     )
