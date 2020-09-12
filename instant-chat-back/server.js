@@ -15,12 +15,13 @@ const pusher = new Pusher({
     key: '1e365354b100ee866cd1',
     secret: 'e0148edc085b6a1851d7',
     cluster: 'eu',
-    encrypted: true
+    useTLS: true,
+    // encrypted: true
   });
 
 // middleware
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
 // app.use((req,res,next) => {
 //     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -53,6 +54,8 @@ db.once('open', () => {
             pusher.trigger('messages', 'inserted',{
                 name: messageDetails.name,
                 message: messageDetails.message,
+                timestamp: messageDetails.timestamp,
+                received: messageDetails.received
             });
         } else {
             console.log("error triggering pusher")
