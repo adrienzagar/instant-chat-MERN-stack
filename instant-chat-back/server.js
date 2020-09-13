@@ -1,6 +1,7 @@
 // importing
 import express from 'express'
 import mongoose from 'mongoose'
+import bodyParser from 'body-parser'
 import Messages from './dbMessages.js';
 import Pusher from "pusher";
 import cors from 'cors'
