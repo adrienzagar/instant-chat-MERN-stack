@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import Messages from './dbMessages.js';
 import Pusher from "pusher";
 import cors from 'cors'
+import ChatRoom from './models/ChatRoom.js';
 
 
 // app config
@@ -47,6 +48,7 @@ db.once('open', () => {
     const msgCollection = db.collection("messagecontents");
     const changeStream = msgCollection.watch();
 
+
     changeStream.on('change', (change) => {
         console.log(change, "changing");
 
@@ -62,11 +64,26 @@ db.once('open', () => {
             console.log("error triggering pusher")
         }
     })
+
+    const chatroomCollection = db.collection("chatrooms");
+    const chatroomAdd = chatroomCollection.watch()
+
+    chatroomAdd.on('change', (change) => {
+        console.log(change,"adding chatroom");
+
+        if (change.operationType === 'insert') {
+            const chatroomDetails = change.fullDocument;
+            pusher.trigger('chatrooms', 'inserted', {
+                name: chatroomDetails.name
+            })
+        }
+    })
 })
 
 // ????
 
 // api routes
+// ================ Messages Routes
 app.get("/", (req,res) => res.status(200).send('hello world')); 
 
 app.get("/messages/sync", (req, res) => {
@@ -84,7 +101,33 @@ app.get("/messages/sync", (req, res) => {
 app.post("/messages/new", (req, res) => {
     const dbMessage = req.body
 
-    Messages.create(dbMessage, (err,data) => {
+    Messages.create(dbMessage, (err, data) => {
+        if (err) {
+            res.status(500).send(err)
+        } else {
+            res.status(201).send(data)
+        }
+    })
+});
+
+//=================== Chat Room Routes
+
+app.get("/chatroom/sync", (req, res) => {
+    const dbChatroom = req.body
+
+    ChatRoom.find((err, data) => {
+        if (err) {
+            res.status(500).send(err)
+        } else {
+            res.status(200).send(data)
+        }
+    })
+})
+
+app.post("/chatroom/new", (req, res) => {
+    const dbChatroom = req.body
+
+    ChatRoom.create(dbChatroom, (err, data) => {
         if (err) {
             res.status(500).send(err)
         } else {
