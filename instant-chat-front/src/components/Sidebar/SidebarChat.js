@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './styles.scss'
 import { Avatar } from '@material-ui/core'
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import axios from '../../axios'
 
 const SidebarChat = ({ addNewChat, chatrooms }) => {
@@ -20,17 +21,19 @@ const SidebarChat = ({ addNewChat, chatrooms }) => {
                 name: input
             })
         }
+
+        setInput("")
     }
 
     // console.log(chatrooms)
 
     return !addNewChat ? (
-        chatrooms.map(({ name }) => {
-            console.log(name)
+        chatrooms.map(({ name, _id }) => {
+            console.log(name, _id)
             return (
                 <div className="sidebarChat">
                     <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
-                    <div className="sidebarChat__info">
+                    <div key={_id} className="sidebarChat__info">
                     <h2>{name}</h2>
                         <p>this is the last message</p>
                     </div>
@@ -38,16 +41,14 @@ const SidebarChat = ({ addNewChat, chatrooms }) => {
             )
         })
     ) : (
-        <div 
-            // onClick={createChat}
-            className="sidebarChat"
-        >
-            <h2>Add new chat</h2>
+        <div className="sidebarChat__add">
             <form action="">
+            <AddCircleIcon />
                 <input 
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    placeholder="Add a new chatroom"
                 />
                  <button onClick={createChat} type="submit">Add New Chat</button>
             </form>

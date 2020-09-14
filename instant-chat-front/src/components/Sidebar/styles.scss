@@ -64,8 +64,28 @@
     &__info {
         margin-left: 15px;
     }
-    & > form > button {
-        display: none;
+    &__add {
+        background-color: #f6f6f6;
+        margin-top: 15px;
+        & > form {
+            display: flex;
+            align-items: center;
+        }
+        & > form > input {
+            outline-width: 0;
+            border-radius: 20px;
+            width: 100%;
+            height: 15px;
+            margin-left: 30px;
+            border: none;
+        }
+        & > form > .MuiSvgIcon-root {
+            color: gray;
+            margin-left: 30px;
+        }
+        & > form > button {
+            display: none;
+        }
     }
 }
 

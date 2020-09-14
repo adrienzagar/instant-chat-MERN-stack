@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './styles.scss';
 import { Avatar, IconButton } from '@material-ui/core'
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
@@ -9,6 +9,7 @@ import SidebarChat from './SidebarChat';
 
 const Sidebar = ({ chatrooms }) => {
     console.log(chatrooms, "chatroom of sidebar")
+
     return (
         <div className="sidebar">
             <div className="sidebar__header">
